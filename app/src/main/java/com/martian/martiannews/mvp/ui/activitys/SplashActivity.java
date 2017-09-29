@@ -12,6 +12,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.martian.martiannews.R;
 import com.martian.martiannews.uitl.TransformUtils;
 import com.nineoldandroids.animation.Animator;
+import com.zxinsight.MLink;
+import com.zxinsight.MWConfiguration;
+import com.zxinsight.MagicWindowSDK;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +38,34 @@ public class SplashActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.zoomin, 0);
         setContentView(R.layout.activity_splash);
         unbinder = ButterKnife.bind(this);
+        initData();
         initAnimation();
+    }
+
+    private void initData() {
+        MWConfiguration config = new MWConfiguration(this);
+        //设置渠道，非必须（渠道推荐在AndroidManifest.xml内填写）
+//        config.setChannel("你的渠道名称")
+        //开启Debug模式，显示Log，release时注意关闭
+               config.setDebugModel(true)
+                //带有Fragment的页面。具体查看2.2.2
+                .setPageTrackWithFragment(true);
+                //设置分享方式，如果之前有集成sharesdk，可在此开启
+//                .setSharePlatform(MWConfiguration.ORIGINAL);
+        MagicWindowSDK.initSDK(config);
+
+        MLink.getInstance(this).registerWithAnnotation(this);
+
+        if (getIntent().getData()!=null) {
+            MLink.getInstance(this).router(this, getIntent().getData());
+            //跳转后结束当前activity
+            finish();
+        } else {
+            //如果需要应用宝跳转，则调用。否则不需要
+            //MLink.getInstance(this).checkYYB();
+            //跳转到首页
+            initAnimation();
+        }
     }
 
     private void initAnimation() {
@@ -97,12 +127,12 @@ public class SplashActivity extends AppCompatActivity {
 //
 //                    }
 //                });
-        Observable.timer(2*1000,TimeUnit.MILLISECONDS)
+        Observable.timer(2 * 1000, TimeUnit.MILLISECONDS)
                 .compose(TransformUtils.<Long>defaultSchedulers())
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         overridePendingTransition(0, android.R.anim.fade_out);
                         SplashActivity.this.finish();
                     }

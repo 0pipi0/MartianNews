@@ -27,6 +27,7 @@ import com.martian.martiannews.uitl.MyUtils;
 import com.martian.martiannews.uitl.NetUtil;
 import com.martian.martiannews.uitl.TransformUtils;
 import com.martian.martiannews.widget.URLImageGetter;
+import com.zxinsight.mlink.annotation.MLinkRouter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +41,7 @@ import rx.Subscriber;
 /**
  * Created by yangpei on 2016/12/11.
  */
-
+@MLinkRouter(keys={"mn_news_detail"})
 public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
     @BindView(R.id.news_detail_photo_iv)
     ImageView newsDetailPhotoIv;

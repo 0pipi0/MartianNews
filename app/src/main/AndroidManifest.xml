@@ -9,6 +9,15 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.GET_TASKS"/>
 
+
+    <!-- 允许应用程序联网，以便向我们的服务器端发送数据。 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--判断程序是否在前台运行,必须 -->
+    <!-- 检测手机基本状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 缓存资源优先存入SDcard -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/i_launcher"
@@ -21,6 +30,13 @@
             android:name=".mvp.ui.activitys.SplashActivity"
             android:excludeFromRecents="false"
             android:theme="@style/BaseAppTheme.Trans">
+
+            <intent-filter>
+                <data android:scheme="martiannew"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +76,24 @@
             android:theme="@style/BaseAppTheme.NoTrans">
         </activity>
 
+        <receiver android:name="com.martian.martiannews.push.MessageReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <!-- 接收消息透传 -->
+                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
+                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
+                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
 
+        <!--总的activity，必须注册！！！ -->
+        <activity android:name="com.zxinsight.common.base.MWActivity" android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"/>
+
+        <!--MW sdk ID 此处跟activity同级，需要放在Application内，MW_APPID（也就是后台的” 魔窗AppKey”）不能更改 -->
+        <meta-data android:name="MW_APPID" android:value="VZGEI05QVEAS589R80I0ANQHSBJAPN6O" />
+        <!--渠道名称MW_CHANNEL不能更改 -->
+        <meta-data android:name="MW_CHANNEL" android:value="martian" />
 
     </application>
 

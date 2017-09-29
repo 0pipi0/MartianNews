@@ -24,6 +24,7 @@ import com.martian.martiannews.mvp.ui.fragment.NewsListFragment;
 import com.martian.martiannews.mvp.view.MainActivityView;
 import com.martian.martiannews.uitl.MyUtils;
 import com.martian.martiannews.uitl.RxBus;
+import com.zxinsight.mlink.annotation.MLinkDefaultRouter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import butterknife.OnClick;
 import rx.functions.Action1;
 
 @BindValues(mIsHasNavigationView = true)
+@MLinkDefaultRouter
 public class MainActivity extends BaseActivity implements MainActivityView {
 
     @BindView(R.id.toolbar)
