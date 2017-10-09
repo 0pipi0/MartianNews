@@ -34,6 +34,11 @@ android {
                 XG_ACCESS_ID:"2100267907",
                 XG_ACCESS_KEY : "A5ZI5KAS939H",
         ]
+      javaCompileOptions {
+        annotationProcessorOptions {
+          arguments = [ moduleName : project.getName() ]
+        }
+      }
     }
     buildTypes {
         debug {
@@ -116,10 +121,12 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile(name: 'MagicWindowSDK', ext: 'aar')
-
     //信鸽稳定版
     compile 'com.tencent.xinge:xinge:3.1.81-alpha'
     //mid包
     compile 'com.tencent.mid:mid:3.72.4-alpha'
     compile 'com.tencent.wup:wup:1.0.0.E-alpha'
+    compile files('libs/MiPush_SDK_Client_3_4_5.jar')
+    compile 'com.alibaba:arouter-api:1.2.1.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
 }
